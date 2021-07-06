@@ -1,4 +1,4 @@
-package com.example.navernews.InterFaces;
+package com.example.navernews.interFaces;
 
 public interface MainContract {
 

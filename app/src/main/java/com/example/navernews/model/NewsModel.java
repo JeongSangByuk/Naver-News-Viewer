@@ -1,6 +1,6 @@
-package com.example.navernews.Model;
+package com.example.navernews.model;
 
-import com.example.navernews.InterFaces.MainContract;
+import com.example.navernews.interFaces.MainContract;
 
 public class NewsModel {
     private MainContract.Presenter presenter;

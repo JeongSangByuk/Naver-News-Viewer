@@ -1,6 +1,6 @@
-package com.example.navernews.Presenter;
+package com.example.navernews.presenter;
 
-import com.example.navernews.InterFaces.MainContract;
+import com.example.navernews.interFaces.MainContract;
 
 public class NewsPresenter implements MainContract.Presenter {
 
