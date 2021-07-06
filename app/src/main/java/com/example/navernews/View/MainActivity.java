@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     private void initObject(){
         tv1 = findViewById(R.id.tv1);
-        tv2 = findViewById(R.id.tv2);
+        tv2 = findViewById(R.id.tv222);
         tv3 = findViewById(R.id.tv33);
         bnt1 = findViewById(R.id.bnt1);
     }
