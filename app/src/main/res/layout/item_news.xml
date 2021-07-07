@@ -16,7 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,8 +28,9 @@
 
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="100dp"
-                android:layout_height="65dp"
+                android:id="@+id/iv_news"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
                 android:adjustViewBounds="true"
                 android:background="@color/colorTransparent"
                 android:scaleType="centerCrop"
@@ -36,7 +40,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
@@ -49,16 +53,16 @@
 
                     <TextView
                         android:id="@+id/tvTitle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:ellipsize="end"
+
                         android:fontFamily="@font/hangeulnurib"
                         android:maxLines="1"
                         android:text="@{news.title}"
                         android:textColor="@color/black"
                         android:textSize="13dp"
-                        tools:text="과학사의 발전.과학사의 발전.과학사의 발전.과학사의 발전." />
+                        tools:text="과학사의 발전.과학사의 발전.과학사의 발전.과학사의 발전.sss" />
 
                     <TextView
                         android:id="@+id/tvTime"
@@ -66,7 +70,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_weight="0"
                         android:fontFamily="@font/hangeulnurir"
                         android:gravity="center"
                         android:text="@{news.time}"

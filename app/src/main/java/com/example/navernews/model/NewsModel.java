@@ -40,12 +40,10 @@ public class NewsModel {
     public ArrayList<NewsDTO> getNewsData() {
 
         ArrayList<NewsDTO> news = new ArrayList<>();
-        backgroundTask("https://news.naver.com/main/list.naver?mode=LSD&mid=sec&sid1=001");
+        backgroundTask("https://news.naver.com/main/list.naver?mode=LSD&mid=sec&sid1=100");
 
         return news;
     }
-
-
 
     void backgroundTask(String URLs) {
         //onPreExecute
@@ -54,22 +52,30 @@ public class NewsModel {
 
             //doInBackground
             try {
-                Document doc = Jsoup.connect("https://news.naver.com/main/list.naver?mode=LSD&mid=sec&sid1=001").get();
+                Document doc = Jsoup.connect(URLs).get();
                 Elements elements = doc.select("ul[class=type06_headline]").select("li");
                 int size = elements.size();
-                Log.d("qwe", String.valueOf(size));
 
                 for(Element element : elements){
 
+                    int index = 2;
+
                     String link = element.select("li dt[class=photo] a").attr("href");
                     String imgLink = element.select("li dt[class=photo] img").attr("src");
-                    String des = element.getElementsByIndexEquals(2).select("span[class=lede]").text();
-                    String title = element.getElementsByIndexEquals(1).select("a[class=nclicks(fls.list)]").text();
-                    String writing = element.getElementsByIndexEquals(2).select("span[class=writing]").text();
-                    String time = element.getElementsByIndexEquals(2).select("span[class=date is_new]").text();
-                    presenter.getNews().add(new NewsDTO(title,des,time));
 
-                    Log.d("qwe", title);
+                    if(imgLink.equals("")){
+                        index = 1;
+                    }
+
+                    String des = element.getElementsByIndexEquals(index).select("span[class=lede]").text();
+                    String title = element.getElementsByIndexEquals(index-1).select("a[class=nclicks(fls.list)]").text();
+                    String writing = element.getElementsByIndexEquals(index).select("span[class=writing]").text();
+                    String time = element.getElementsByIndexEquals(index).select("span[class=date is_new]").text();
+                    if(time.equals(""))
+                        time = element.getElementsByIndexEquals(index).select("span[class=date is_outdated]").text();
+
+                    presenter.getNews().add(new NewsDTO(title,des,time,imgLink));
+                    Log.d("qwe",time);
                 }
 
             } catch (IOException e) {

@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.navernews.interFaces.MainContract;
 import com.example.navernews.model.NewsDTO;
 import com.example.navernews.R;
@@ -53,6 +54,8 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.NewsRVView
         @Override
         public void setItem(NewsDTO newsDTO) {
             binding.setNews(newsDTO);
+            Glide.with(itemView).load(newsDTO.getImgURL())
+                    .placeholder(R.drawable.loading).error(R.drawable.nophoto).into(binding.ivNews);
         }
     }
 }
