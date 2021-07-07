@@ -7,6 +7,7 @@ public interface MainContract {
 
     interface MainView{
         void onDataChange();
+        void setCategoryView();
     }
 
     interface NewsItemView{

@@ -14,12 +14,14 @@ import com.example.navernews.interFaces.MainContract;
 import com.example.navernews.presenter.NewsPresenter;
 import com.example.navernews.R;
 import com.example.navernews.databinding.ActivityMainBinding;
+import com.example.navernews.utils.Constants;
 
 public class MainActivity extends AppCompatActivity implements MainContract.MainView {
 
     private ActivityMainBinding binding;
     private NewsPresenter mainPresenter;
     private NewsRVAdapter rvAdapter;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -44,6 +46,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     public void onDataChange() {
         rvAdapter.notifyDataSetChanged();
         binding.swipeLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void setCategoryView() {
+        switch (mainPresenter.nowCategory){
+            case Constants.NOW_CATEGORY.POL.toString():
+                mainPresenter.nowCategory = // 여기 now카테고리 get set 만들기부터,,
+                break;
+
+
+        }
     }
 
     // 상태바 색 바꾸기
