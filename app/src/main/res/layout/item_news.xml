@@ -57,7 +57,7 @@
                         android:maxLines="1"
                         android:text="@{news.title}"
                         android:textColor="@color/black"
-                        android:textSize="15dp"
+                        android:textSize="13dp"
                         tools:text="과학사의 발전.과학사의 발전.과학사의 발전.과학사의 발전." />
 
                     <TextView
@@ -73,7 +73,7 @@
                         tools:text="7월 12일 12:00"
 
                         android:textColor="@color/colorGray"
-                        android:textSize="12dp" />
+                        android:textSize="8dp" />
 
 
                 </LinearLayout>

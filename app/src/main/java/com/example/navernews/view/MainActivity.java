@@ -10,10 +10,10 @@ import com.example.navernews.presenter.NewsPresenter;
 import com.example.navernews.R;
 import com.example.navernews.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View {
+public class MainActivity extends AppCompatActivity implements MainContract.MainView {
 
     private ActivityMainBinding binding;
-    private MainContract.Presenter mainPresenter;
+    private NewsPresenter mainPresenter;
     private NewsRVAdapter rvAdapter;
 
     @Override
@@ -22,24 +22,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mainPresenter = new NewsPresenter(this);
 
-        initListener();
-        rvAdapter = new NewsRVAdapter();
+        rvAdapter = new NewsRVAdapter(mainPresenter);
         binding.newsRv.setAdapter(rvAdapter);
     }
 
-
-    private void initListener(){
-
-
-    }
-
-    private void getTextData(){
-
-
-    }
-
     @Override
-    public void setNewTvData(String text) {
-
+    public void onDataChange() {
+        rvAdapter.notifyDataSetChanged();
     }
 }

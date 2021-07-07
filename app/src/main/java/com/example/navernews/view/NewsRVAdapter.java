@@ -8,12 +8,19 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.navernews.interFaces.MainContract;
 import com.example.navernews.model.NewsDTO;
 import com.example.navernews.R;
 import com.example.navernews.databinding.ItemNewsBinding;
+import com.example.navernews.presenter.NewsPresenter;
 
 public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.NewsRVViewHolder> {
 
+    private NewsPresenter newsPresenter;
+
+    public NewsRVAdapter(NewsPresenter newsPresenter) {
+        this.newsPresenter = newsPresenter;
+    }
 
     @NonNull
     @Override
@@ -24,22 +31,28 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.NewsRVView
 
     @Override
     public void onBindViewHolder(@NonNull NewsRVAdapter.NewsRVViewHolder holder, int position) {
-
-        holder.binding.setNews(new NewsDTO("상상 그이상상상 그이상상상 그이상상상 그이상","상상 그 이상으로가는 상상","7월 7일 21:01"));
+        // presenter에 위임
+        newsPresenter.onBindNewsItem(position,holder);
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return newsPresenter.getNewsCount();
     }
 
-    public class NewsRVViewHolder extends RecyclerView.ViewHolder{
+    public class NewsRVViewHolder extends RecyclerView.ViewHolder implements MainContract.NewsItemView {
 
-        protected ItemNewsBinding binding;
+        public ItemNewsBinding binding;
 
         public NewsRVViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
+        }
+
+        // View에서 UI 업데이트
+        @Override
+        public void setItem(NewsDTO newsDTO) {
+            binding.setNews(newsDTO);
         }
     }
 }

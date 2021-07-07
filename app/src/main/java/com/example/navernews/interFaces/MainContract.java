@@ -1,13 +1,24 @@
 package com.example.navernews.interFaces;
 
+import com.example.navernews.model.NewsDTO;
+import com.example.navernews.view.NewsRVAdapter;
+
 public interface MainContract {
 
-    interface View{
-        void setNewTvData(String text);
+    interface MainView{
+        void onDataChange();
+    }
+
+    interface NewsItemView{
+        void setItem(NewsDTO newsDTO);
     }
 
     interface Presenter{
-        void changeData(String text1,String text2);
+
+        int getNewsCount();
+        void onBindNewsItem(int position, NewsRVAdapter.NewsRVViewHolder holder);
+
+
     }
 
 }
