@@ -100,7 +100,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/hangeulnurib"
                 android:padding="10dp"
-                android:text="IT"
+                android:text="과학"
                 android:gravity="center"
                 android:textColor="@color/mainGreen"
                 android:onClick="@{activity::onClickItTv}"
