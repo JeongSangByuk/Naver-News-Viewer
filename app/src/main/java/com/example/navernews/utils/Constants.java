@@ -8,7 +8,7 @@ public class Constants {
     public final static String IT_URL = "https://news.naver.com/main/list.naver?mode=LSD&mid=sec&sid1=105";
 
     public enum NOW_CATEGORY {
-        POL,SOC,ECO,LIF,IT
+        POL,ECO,SOC,LIF,IT
     }
 
 }

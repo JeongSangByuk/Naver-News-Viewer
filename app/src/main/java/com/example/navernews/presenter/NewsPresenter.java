@@ -1,5 +1,7 @@
 package com.example.navernews.presenter;
 
+import android.util.Log;
+
 import com.example.navernews.interfaces.MainContract;
 import com.example.navernews.model.NewsDTO;
 import com.example.navernews.model.NewsModel;
@@ -35,6 +37,13 @@ public class NewsPresenter implements MainContract.Presenter {
     @Override
     public void setCategory(Constants.NOW_CATEGORY category) {
         nowCategory = category;
+        mainView.setCategoryView();
+        setNews();
+    }
+
+    @Override
+    public void setCategory(int category) {
+        nowCategory = Constants.NOW_CATEGORY.values()[category];
         mainView.setCategoryView();
         setNews();
     }

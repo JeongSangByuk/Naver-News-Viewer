@@ -12,6 +12,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.navernews.interfaces.MainContract;
@@ -19,6 +21,8 @@ import com.example.navernews.presenter.NewsPresenter;
 import com.example.navernews.R;
 import com.example.navernews.databinding.ActivityMainBinding;
 import com.example.navernews.utils.Constants;
+import com.github.pwittchen.swipe.library.rx2.Swipe;
+import com.github.pwittchen.swipe.library.rx2.SwipeListener;
 
 import java.nio.channels.InterruptedByTimeoutException;
 
@@ -28,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     private NewsPresenter mainPresenter;
     private NewsRVAdapter rvAdapter;
     private LoadingDialog loadingDialog;
+    private long clickedTime;
+
+    private Swipe swipe;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -48,12 +55,82 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
                 mainPresenter.setNews();
             }
         });
+
+        clickedTime = 0;
+
+        swipe = new Swipe();
+        onSwipe();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        swipe.dispatchTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
     public void onDataChange() {
         rvAdapter.notifyDataSetChanged();
         binding.swipeLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onSwipe() {
+        swipe.setListener(new SwipeListener() {
+            @Override
+            public void onSwipingLeft(MotionEvent event) {
+
+            }
+
+            @Override
+            public boolean onSwipedLeft(MotionEvent event) {
+
+                if(mainPresenter.nowCategory.ordinal() == 4)
+                    return false;
+
+                clickedTime = System.currentTimeMillis();
+                mainPresenter.setCategory(mainPresenter.nowCategory.ordinal() + 1);
+                return false;
+            }
+
+            @Override
+            public void onSwipingRight(MotionEvent event) {
+                Log.d("qwe","ing");
+            }
+
+            @Override
+            public boolean onSwipedRight(MotionEvent event) {
+                if(mainPresenter.nowCategory.ordinal() == 0)
+                    return false;
+
+                clickedTime = System.currentTimeMillis();
+                mainPresenter.setCategory(mainPresenter.nowCategory.ordinal() - 1);
+                Log.d("qwe","ed");
+
+                return false;
+            }
+
+            @Override
+            public void onSwipingUp(MotionEvent event) {
+
+            }
+
+            @Override
+            public boolean onSwipedUp(MotionEvent event) {
+
+                return false;
+            }
+
+            @Override
+            public void onSwipingDown(MotionEvent event) {
+
+            }
+
+            @Override
+            public boolean onSwipedDown(MotionEvent event) {
+                return false;
+            }
+        });
     }
 
     @SuppressLint("ResourceAsColor")
@@ -142,8 +219,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
     @Override
     public void connectLink(String url) {
+
+        // 더블클릭 방지.
+        if (System.currentTimeMillis() <= clickedTime + 500)
+            return;
+
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
+        Log.d("qwe","click");
     }
 
 }

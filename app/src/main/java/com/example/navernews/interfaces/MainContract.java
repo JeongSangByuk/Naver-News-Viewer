@@ -8,6 +8,7 @@ public interface MainContract {
 
     interface MainView{
         void onDataChange();
+        void onSwipe();
         void setCategoryView();
         void onClickCategoryView(Constants.NOW_CATEGORY category);
         void setStatusBar();
@@ -21,11 +22,12 @@ public interface MainContract {
         void onItemClick(String url);
     }
 
-    interface Presenter{
+    interface Presenter<T>{
 
         int getNewsCount();
         void onBindNewsItem(int position, NewsRVAdapter.NewsRVViewHolder holder);
         void setCategory(Constants.NOW_CATEGORY category);
+        void setCategory(int category);
 
     }
 

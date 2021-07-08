@@ -1,5 +1,7 @@
 package com.example.navernews.model;
 
+import android.util.Log;
+
 import com.example.navernews.presenter.NewsPresenter;
 import com.example.navernews.utils.Constants;
 
@@ -69,7 +71,6 @@ public class NewsModel {
 
                     int index = 2;
 
-                    String link = element.select("li dt[class=photo] a").attr("href");
                     String imgLink = element.select("li dt[class=photo] img").attr("src");
 
                     if(imgLink.equals("")){
@@ -81,6 +82,7 @@ public class NewsModel {
                         des = "본문의 내용이 없습니다.";
 
                     String title = element.getElementsByIndexEquals(index-1).select("a[class=nclicks(fls.list)]").text();
+                    String link = element.getElementsByIndexEquals(index-1).select("a[class=nclicks(fls.list)]").attr("href");
                     //String writing = element.getElementsByIndexEquals(index).select("span[class=writing]").text();
                     String time = element.getElementsByIndexEquals(index).select("span[class=date is_new]").text();
                     if(time.equals(""))
