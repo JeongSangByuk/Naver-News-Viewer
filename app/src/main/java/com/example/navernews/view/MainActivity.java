@@ -7,6 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     private ActivityMainBinding binding;
     private NewsPresenter mainPresenter;
     private NewsRVAdapter rvAdapter;
+    private LoadingDialog loadingDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -121,6 +123,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         View view = getWindow().getDecorView();
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));//색 지정
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.show();
+    }
+
+    @Override
+    public void dismissLoadingdialog() {
+        loadingDialog.dismiss();
     }
 
 }

@@ -55,6 +55,7 @@ public class NewsModel {
 
     void backgroundTask(String URLs) {
         //onPreExecute
+        presenter.getMainView().showLoadingDialog();
 
         backgroundtask = Observable.fromCallable(() -> {
 
@@ -95,6 +96,7 @@ public class NewsModel {
 
             //onPostExecute
             presenter.getMainView().onDataChange();
+            presenter.getMainView().dismissLoadingdialog();
             backgroundtask.dispose();
         });
     }

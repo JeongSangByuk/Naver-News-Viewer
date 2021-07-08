@@ -11,6 +11,8 @@ public interface MainContract {
         void setCategoryView();
         void onClickCategoryView(Constants.NOW_CATEGORY category);
         void setStatusBar();
+        void showLoadingDialog();
+        void dismissLoadingdialog();
     }
 
     interface NewsItemView{
