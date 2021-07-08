@@ -1,5 +1,6 @@
 package com.example.navernews.view;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.NewsRVView
     @Override
     public NewsRVViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news, parent, false);
-        return new NewsRVViewHolder(view);
+        return new NewsRVViewHolder(view,newsPresenter);
     }
 
     @Override
@@ -44,10 +45,13 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.NewsRVView
     public class NewsRVViewHolder extends RecyclerView.ViewHolder implements MainContract.NewsItemView {
 
         public ItemNewsBinding binding;
+        private NewsPresenter newsPresenter;
 
-        public NewsRVViewHolder(@NonNull View itemView) {
+        public NewsRVViewHolder(@NonNull View itemView,NewsPresenter newsPresenter) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
+            binding.setOnClickListener(this);
+            this.newsPresenter = newsPresenter;
         }
 
         // View에서 UI 업데이트
@@ -56,6 +60,11 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.NewsRVView
             binding.setNews(newsDTO);
             Glide.with(itemView).load(newsDTO.getImgURL())
                     .placeholder(R.drawable.loading).error(R.drawable.nophoto).into(binding.ivNews);
+        }
+
+        @Override
+        public void onItemClick(String url) {
+            newsPresenter.getMainView().connectLink(url);
         }
     }
 }

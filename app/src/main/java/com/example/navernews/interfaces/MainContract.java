@@ -13,10 +13,12 @@ public interface MainContract {
         void setStatusBar();
         void showLoadingDialog();
         void dismissLoadingdialog();
+        void connectLink(String url);
     }
 
     interface NewsItemView{
         void setNewsItem(NewsDTO newsDTO);
+        void onItemClick(String url);
     }
 
     interface Presenter{

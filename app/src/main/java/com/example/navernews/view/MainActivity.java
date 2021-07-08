@@ -6,8 +6,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,8 @@ import com.example.navernews.presenter.NewsPresenter;
 import com.example.navernews.R;
 import com.example.navernews.databinding.ActivityMainBinding;
 import com.example.navernews.utils.Constants;
+
+import java.nio.channels.InterruptedByTimeoutException;
 
 public class MainActivity extends AppCompatActivity implements MainContract.MainView {
 
@@ -134,6 +138,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     @Override
     public void dismissLoadingdialog() {
         loadingDialog.dismiss();
+    }
+
+    @Override
+    public void connectLink(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 
 }

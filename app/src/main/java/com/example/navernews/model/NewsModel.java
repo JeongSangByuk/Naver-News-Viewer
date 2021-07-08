@@ -77,13 +77,16 @@ public class NewsModel {
                     }
 
                     String des = element.getElementsByIndexEquals(index).select("span[class=lede]").text();
+                    if(des.equals(""))
+                        des = "본문의 내용이 없습니다.";
+                    
                     String title = element.getElementsByIndexEquals(index-1).select("a[class=nclicks(fls.list)]").text();
-                    String writing = element.getElementsByIndexEquals(index).select("span[class=writing]").text();
+                    //String writing = element.getElementsByIndexEquals(index).select("span[class=writing]").text();
                     String time = element.getElementsByIndexEquals(index).select("span[class=date is_new]").text();
                     if(time.equals(""))
                         time = element.getElementsByIndexEquals(index).select("span[class=date is_outdated]").text();
 
-                    presenter.getNews().add(new NewsDTO(title,des,time,imgLink));
+                    presenter.getNews().add(new NewsDTO(title,des,time,imgLink,link));
                 }
 
             } catch (IOException e) {
