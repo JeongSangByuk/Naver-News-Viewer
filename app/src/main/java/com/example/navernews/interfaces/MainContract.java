@@ -1,6 +1,7 @@
-package com.example.navernews.interFaces;
+package com.example.navernews.interfaces;
 
 import com.example.navernews.model.NewsDTO;
+import com.example.navernews.utils.Constants;
 import com.example.navernews.view.NewsRVAdapter;
 
 public interface MainContract {
@@ -8,17 +9,19 @@ public interface MainContract {
     interface MainView{
         void onDataChange();
         void setCategoryView();
+        void onClickCategoryView(Constants.NOW_CATEGORY category);
+        void setStatusBar();
     }
 
     interface NewsItemView{
-        void setItem(NewsDTO newsDTO);
+        void setNewsItem(NewsDTO newsDTO);
     }
 
     interface Presenter{
 
         int getNewsCount();
         void onBindNewsItem(int position, NewsRVAdapter.NewsRVViewHolder holder);
-
+        void setCategory(Constants.NOW_CATEGORY category);
 
     }
 

@@ -1,6 +1,6 @@
 package com.example.navernews.presenter;
 
-import com.example.navernews.interFaces.MainContract;
+import com.example.navernews.interfaces.MainContract;
 import com.example.navernews.model.NewsDTO;
 import com.example.navernews.model.NewsModel;
 import com.example.navernews.utils.Constants;
@@ -13,12 +13,12 @@ public class NewsPresenter implements MainContract.Presenter {
     private MainContract.MainView mainView;
     private ArrayList<NewsDTO> news;
     private NewsModel newsModel;
-    public String nowCategory;
+    public Constants.NOW_CATEGORY nowCategory;
 
     public NewsPresenter(MainContract.MainView mainView) {
         this.mainView = mainView;
         newsModel = new NewsModel(this);
-        nowCategory = Constants.NOW_CATEGORY.POL.toString();
+        nowCategory = Constants.NOW_CATEGORY.POL;
         setNews();
     }
 
@@ -29,7 +29,14 @@ public class NewsPresenter implements MainContract.Presenter {
 
     @Override
     public void onBindNewsItem(int position, NewsRVAdapter.NewsRVViewHolder holder) {
-        holder.setItem(news.get(position));
+        holder.setNewsItem(news.get(position));
+    }
+
+    @Override
+    public void setCategory(Constants.NOW_CATEGORY category) {
+        nowCategory = category;
+        mainView.setCategoryView();
+        setNews();
     }
 
     public void setNews() {
@@ -43,4 +50,5 @@ public class NewsPresenter implements MainContract.Presenter {
     public MainContract.MainView getMainView() {
         return mainView;
     }
+
 }

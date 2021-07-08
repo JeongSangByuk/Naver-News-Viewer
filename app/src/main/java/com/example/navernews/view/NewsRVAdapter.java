@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.navernews.interFaces.MainContract;
+import com.example.navernews.interfaces.MainContract;
 import com.example.navernews.model.NewsDTO;
 import com.example.navernews.R;
 import com.example.navernews.databinding.ItemNewsBinding;
@@ -32,7 +32,7 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.NewsRVView
 
     @Override
     public void onBindViewHolder(@NonNull NewsRVAdapter.NewsRVViewHolder holder, int position) {
-        // presenter에 위임
+        // presenter에 위임 -> 데이터를 가지고 있는 것은 presenter 이기 때문에
         newsPresenter.onBindNewsItem(position,holder);
     }
 
@@ -52,7 +52,7 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.NewsRVView
 
         // View에서 UI 업데이트
         @Override
-        public void setItem(NewsDTO newsDTO) {
+        public void setNewsItem(NewsDTO newsDTO) {
             binding.setNews(newsDTO);
             Glide.with(itemView).load(newsDTO.getImgURL())
                     .placeholder(R.drawable.loading).error(R.drawable.nophoto).into(binding.ivNews);

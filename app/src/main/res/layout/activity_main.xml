@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="activity"
+            type="com.example.navernews.view.MainActivity" />
+
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,12 +44,14 @@
                 android:fontFamily="@font/hangeulnurib"
                 android:padding="10dp"
                 android:text="정치"
-                android:textColor="@color/black"
+                android:textColor="@color/mainGreen"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:textSize="13dp"
+                android:onClick="@{activity::onClickPolTv}"
+                />
 
             <TextView
-                android:id="@+id/tvEoc"
+                android:id="@+id/tvEco"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -50,8 +60,9 @@
                 android:padding="10dp"
                 android:text="경제"
                 android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
+                android:textColor="@color/mainGreen"
+                android:onClick="@{activity::onClickEcoTv}"
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/tvSoc"
@@ -63,8 +74,9 @@
                 android:padding="10dp"
                 android:text="사회"
                 android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
+                android:textColor="@color/mainGreen"
+                android:onClick="@{activity::onClickSocTv}"
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/tvLif"
@@ -76,15 +88,79 @@
                 android:padding="10dp"
                 android:text="생활"
                 android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
+                android:textColor="@color/mainGreen"
+                android:onClick="@{activity::onClickLifTv}"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/tvIt"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/hangeulnurib"
+                android:padding="10dp"
+                android:text="IT"
+                android:gravity="center"
+                android:textColor="@color/mainGreen"
+                android:onClick="@{activity::onClickItTv}"
+                android:textSize="13dp" />
+
+
         </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
         <View
-            android:layout_width="match_parent"
+            android:id="@+id/vPol"
+            android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/mainTransGreen"
+            android:layout_weight="1"
+            android:background="@color/mainGreen"
+            android:layout_gravity="center"
             />
+
+        <View
+            android:id="@+id/vEco"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/mainGreen"
+            android:layout_gravity="center"
+            />
+
+        <View
+            android:id="@+id/vSoc"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/mainGreen"
+            android:layout_gravity="center"
+            />
+
+        <View
+            android:id="@+id/vLif"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/mainGreen"
+            android:layout_gravity="center"
+            />
+
+        <View
+            android:id="@+id/vIt"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/mainGreen"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
 
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

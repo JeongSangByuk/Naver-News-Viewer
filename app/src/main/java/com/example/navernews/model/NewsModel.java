@@ -1,14 +1,7 @@
 package com.example.navernews.model;
 
-import android.os.AsyncTask;
-import android.text.PrecomputedText;
-import android.util.Log;
-import android.view.View;
-
-import androidx.core.util.Consumer;
-
-import com.example.navernews.interFaces.MainContract;
 import com.example.navernews.presenter.NewsPresenter;
+import com.example.navernews.utils.Constants;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,14 +10,9 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Observer;
-
-import javax.xml.transform.Result;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -39,8 +27,28 @@ public class NewsModel {
 
     public ArrayList<NewsDTO> getNewsData() {
 
+        String url = "";
+
+        switch (presenter.nowCategory){
+            case POL:
+                url = Constants.POLITICS_URL;
+                break;
+            case ECO:
+                url = Constants.ECONOMY_URL;
+                break;
+            case SOC:
+                url = Constants.SOCIETY_URL;
+                break;
+            case LIF:
+                url = Constants.LIFE_URL;
+                break;
+            case IT:
+                url = Constants.IT_URL;
+                break;
+        }
+
         ArrayList<NewsDTO> news = new ArrayList<>();
-        backgroundTask("https://news.naver.com/main/list.naver?mode=LSD&mid=sec&sid1=100");
+        backgroundTask(url);
 
         return news;
     }
@@ -75,7 +83,6 @@ public class NewsModel {
                         time = element.getElementsByIndexEquals(index).select("span[class=date is_outdated]").text();
 
                     presenter.getNews().add(new NewsDTO(title,des,time,imgLink));
-                    Log.d("qwe",time);
                 }
 
             } catch (IOException e) {
