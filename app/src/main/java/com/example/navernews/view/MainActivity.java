@@ -47,19 +47,31 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         binding.setActivity(this);
         setStatusBar();
 
-        mainPresenter = new NewsPresenter(this,binding.newsRv);
+        mainPresenter = new NewsPresenter(this);
         setCategoryView();
+
+        clickedTime = 0;
+        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) binding.newsRv.getLayoutManager();
 
         rvAdapter = new NewsRVAdapter(mainPresenter);
         binding.newsRv.setAdapter(rvAdapter);
         binding.swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (System.currentTimeMillis() <= clickedTime + 500)
+                    return;
                 mainPresenter.setNews();
             }
         });
 
-        clickedTime = 0;
+        binding.newsRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                mainPresenter.onScroll(linearLayoutManager);
+            }
+        });
+
         //swipe = new Swipe();
         //onSwipe();
     }
@@ -74,7 +86,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     public void onDataChange(boolean isAdded) {
         rvAdapter.notifyDataSetChanged();
         binding.swipeLayout.setRefreshing(false);
-        //binding.newsRv.scrollToPosition(0);
+
+        if (!isAdded)
+            binding.newsRv.scrollToPosition(0);
     }
 
     @Override
@@ -147,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         binding.vLif.getLayoutParams().height = changeDpToPx(1);
         binding.vIt.getLayoutParams().height = changeDpToPx(1);
 
-        switch (mainPresenter.nowCategory){
+        switch (mainPresenter.nowCategory) {
             case POL:
                 binding.vPol.getLayoutParams().height = changeDpToPx(3);
                 break;
@@ -188,10 +202,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     }
 
     @Override
-    public void onClickCategoryView(Constants.NOW_CATEGORY category){
+    public void onClickCategoryView(Constants.NOW_CATEGORY category) {
 
-        if(mainPresenter.nowCategory == category)
+        if (mainPresenter.nowCategory == category)
             return;
+        clickedTime = System.currentTimeMillis();
+        binding.newsRv.stopScroll();
+        rvAdapter = new NewsRVAdapter(mainPresenter);
+        binding.newsRv.setAdapter(rvAdapter);
+
+
         mainPresenter.setCategory(category);
     }
 
@@ -229,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
-        Log.d("qwe","click");
+        Log.d("qwe", "click");
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.navernews.interfaces;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.navernews.model.NewsDTO;
 import com.example.navernews.utils.Constants;
 import com.example.navernews.view.NewsRVAdapter;
@@ -26,6 +28,7 @@ public interface MainContract {
 
         int getNewsCount();
         void onBindNewsItem(int position, NewsRVAdapter.NewsRVViewHolder holder);
+        void onScroll(LinearLayoutManager linearLayoutManager);
         void onLoadMore();
         void onLoaded();
         void setCategory(Constants.NOW_CATEGORY category);

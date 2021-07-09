@@ -60,7 +60,7 @@ public class NewsModel {
 
             //doInBackground
             try {
-                Document doc = Jsoup.connect(URLs).get();
+                Document doc = Jsoup.connect(URLs).timeout(3000).get();
                 Elements elements = doc.select("ul[class=type06_headline]").select("li");
                 Elements elements2 = doc.select("ul[class=type06]").select("li");
 
@@ -69,6 +69,8 @@ public class NewsModel {
 
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.d("qwe","eerr");
+                presenter.getMainView().dismissLoadingdialog();
             }
 
             return false;

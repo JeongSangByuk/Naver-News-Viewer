@@ -25,30 +25,13 @@ public class NewsPresenter implements MainContract.Presenter {
     private int nowPageNum;
     private int lastVisibleItem, totalItemCount;
 
-    public NewsPresenter(MainContract.MainView mainView, RecyclerView newsRv) {
+    public NewsPresenter(MainContract.MainView mainView) {
         this.mainView = mainView;
         newsModel = new NewsModel(this);
         nowCategory = Constants.NOW_CATEGORY.POL;
 
         initPageNum();
-
         setNews();
-
-        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) newsRv.getLayoutManager();
-        newsRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-                //Log.d("qwe", String.valueOf(lastVisibleItem));
-                if (!isLoading && totalItemCount <= (lastVisibleItem)) {
-                    isLoading = true;
-                    onLoadMore();
-                }
-            }
-        });
-
     }
 
     @Override
@@ -59,6 +42,15 @@ public class NewsPresenter implements MainContract.Presenter {
     @Override
     public void onBindNewsItem(int position, NewsRVAdapter.NewsRVViewHolder holder) {
         holder.setNewsItem(news.get(position));
+    }
+
+    @Override
+    public void onScroll(LinearLayoutManager linearLayoutManager) {
+        lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+        if (!isLoading && totalItemCount <= (lastVisibleItem)) {
+            isLoading = true;
+            onLoadMore();
+        }
     }
 
     @Override
@@ -77,9 +69,7 @@ public class NewsPresenter implements MainContract.Presenter {
     @Override
     public void setCategory(Constants.NOW_CATEGORY category) {
 
-        nowPageNum = 1;
-        totalItemCount = Constants.MAX_NEWS_COUNT - 1;
-        isLoading = false;
+        initPageNum();
 
         nowCategory = category;
         mainView.setCategoryView();
