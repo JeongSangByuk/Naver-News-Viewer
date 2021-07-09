@@ -11,7 +11,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
@@ -22,6 +24,8 @@ public class NewsModel {
 
     private NewsPresenter presenter;
     private Disposable backgroundtask;
+    private ArrayList<NewsDTO> news;
+    private boolean isAdding;
 
     public NewsModel(NewsPresenter presenter) {
         this.presenter = presenter;
@@ -29,30 +33,23 @@ public class NewsModel {
 
     public ArrayList<NewsDTO> getNewsData() {
 
-        String url = "";
-
-        switch (presenter.nowCategory){
-            case POL:
-                url = Constants.POLITICS_URL;
-                break;
-            case ECO:
-                url = Constants.ECONOMY_URL;
-                break;
-            case SOC:
-                url = Constants.SOCIETY_URL;
-                break;
-            case LIF:
-                url = Constants.LIFE_URL;
-                break;
-            case IT:
-                url = Constants.IT_URL;
-                break;
-        }
-
-        ArrayList<NewsDTO> news = new ArrayList<>();
+        isAdding = false;
+        String url = getURL();
+        news = new ArrayList<>();
         backgroundTask(url);
 
         return news;
+    }
+
+    public ArrayList<NewsDTO> addNewsData(int nowPageNum){
+
+        isAdding = true;
+        String url = getURL();
+        url = url + "&date=" + getNowTime() + "&page=" + nowPageNum;
+        backgroundTask(url);
+
+        return news;
+
     }
 
     void backgroundTask(String URLs) {
@@ -65,31 +62,10 @@ public class NewsModel {
             try {
                 Document doc = Jsoup.connect(URLs).get();
                 Elements elements = doc.select("ul[class=type06_headline]").select("li");
-                int size = elements.size();
+                Elements elements2 = doc.select("ul[class=type06]").select("li");
 
-                for(Element element : elements){
-
-                    int index = 2;
-
-                    String imgLink = element.select("li dt[class=photo] img").attr("src");
-
-                    if(imgLink.equals("")){
-                        index = 1;
-                    }
-
-                    String des = element.getElementsByIndexEquals(index).select("span[class=lede]").text();
-                    if(des.equals(""))
-                        des = "본문의 내용이 없습니다.";
-
-                    String title = element.getElementsByIndexEquals(index-1).select("a[class=nclicks(fls.list)]").text();
-                    String link = element.getElementsByIndexEquals(index-1).select("a[class=nclicks(fls.list)]").attr("href");
-                    //String writing = element.getElementsByIndexEquals(index).select("span[class=writing]").text();
-                    String time = element.getElementsByIndexEquals(index).select("span[class=date is_new]").text();
-                    if(time.equals(""))
-                        time = element.getElementsByIndexEquals(index).select("span[class=date is_outdated]").text();
-
-                    presenter.getNews().add(new NewsDTO(title,des,time,imgLink,link));
-                }
+                getDataFromURL(elements);
+                getDataFromURL(elements2);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -100,9 +76,63 @@ public class NewsModel {
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((result) -> {
 
             //onPostExecute
-            presenter.getMainView().onDataChange();
+            if(isAdding)
+                presenter.getMainView().onDataChange(true);
+            else
+                presenter.getMainView().onDataChange(false);
             presenter.getMainView().dismissLoadingdialog();
+            presenter.onLoaded();
             backgroundtask.dispose();
         });
     }
+
+    private void getDataFromURL(Elements elements){
+        for(Element element : elements){
+
+            int index = 2;
+
+            String imgLink = element.select("li dt[class=photo] img").attr("src");
+
+            if(imgLink.equals("")){
+                index = 1;
+            }
+
+            String des = element.getElementsByIndexEquals(index).select("span[class=lede]").text();
+            if(des.equals(""))
+                des = "본문의 내용이 없습니다.";
+
+            String title = element.getElementsByIndexEquals(index-1).select("a[class=nclicks(fls.list)]").text();
+            String link = element.getElementsByIndexEquals(index-1).select("a[class=nclicks(fls.list)]").attr("href");
+            //String writing = element.getElementsByIndexEquals(index).select("span[class=writing]").text();
+            String time = element.getElementsByIndexEquals(index).select("span[class=date is_new]").text();
+            if(time.equals(""))
+                time = element.getElementsByIndexEquals(index).select("span[class=date is_outdated]").text();
+
+            news.add(new NewsDTO(title,des,time,imgLink,link));
+        }
+    }
+
+    private String getNowTime(){
+        long nowTime = System.currentTimeMillis();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        String time = simpleDateFormat.format(new Date(nowTime));
+        return time;
+    }
+
+    private String getURL(){
+        switch (presenter.nowCategory){
+            case POL:
+                return Constants.POLITICS_URL;
+            case ECO:
+                return Constants.ECONOMY_URL;
+            case SOC:
+                return Constants.SOCIETY_URL;
+            case LIF:
+                return Constants.LIFE_URL;
+            case IT:
+                return Constants.IT_URL;
+        }
+        return "";
+    }
+
 }

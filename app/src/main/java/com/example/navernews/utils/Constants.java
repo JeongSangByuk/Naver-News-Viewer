@@ -7,6 +7,8 @@ public class Constants {
     public final static String LIFE_URL = "https://news.naver.com/main/list.naver?mode=LSD&mid=sec&sid1=103";
     public final static String IT_URL = "https://news.naver.com/main/list.naver?mode=LSD&mid=sec&sid1=105";
 
+    public final static int MAX_NEWS_COUNT = 20;
+
     public enum NOW_CATEGORY {
         POL,ECO,SOC,LIF,IT
     }

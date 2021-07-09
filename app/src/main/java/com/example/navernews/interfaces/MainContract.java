@@ -7,7 +7,7 @@ import com.example.navernews.view.NewsRVAdapter;
 public interface MainContract {
 
     interface MainView{
-        void onDataChange();
+        void onDataChange(boolean isAdded);
         void onSwipe();
         void setCategoryView();
         void onClickCategoryView(Constants.NOW_CATEGORY category);
@@ -26,6 +26,8 @@ public interface MainContract {
 
         int getNewsCount();
         void onBindNewsItem(int position, NewsRVAdapter.NewsRVViewHolder holder);
+        void onLoadMore();
+        void onLoaded();
         void setCategory(Constants.NOW_CATEGORY category);
         void setCategory(int category);
 
