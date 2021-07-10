@@ -27,7 +27,7 @@
             android:id="@+id/viewSub"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ffff00"
+            android:background="@color/mainTransGreen"
             android:layout_gravity="center_vertical|end">
 
             <ImageView
@@ -40,7 +40,7 @@
                 android:layout_gravity="end|center_vertical"
                 android:padding="10dp"
                 android:layout_marginLeft="15dp"
-                android:src="@drawable/star2" />
+                android:src="@drawable/starw" />
 
         </FrameLayout>
 

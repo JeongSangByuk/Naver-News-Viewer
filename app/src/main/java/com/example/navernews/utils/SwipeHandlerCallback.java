@@ -11,16 +11,19 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.load.engine.Resource;
+import com.example.navernews.interfaces.MainContract;
+import com.example.navernews.model.NewsDTO;
 import com.example.navernews.view.MainActivity;
 import com.example.navernews.view.NewsRVAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 public class SwipeHandlerCallback extends ItemTouchHelper.Callback {
 
-    private Resources resource;
-    private float downPosition,upPosition;
+    private MainActivity mainActivity;
 
-    public SwipeHandlerCallback(Resources resource) {
-        this.resource = resource;
+    public SwipeHandlerCallback(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
     }
 
     @Override
@@ -35,7 +38,11 @@ public class SwipeHandlerCallback extends ItemTouchHelper.Callback {
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
+        int position = viewHolder.getAdapterPosition();
+        NewsDTO newsDTO =  mainActivity.getMainPresenter().getNews().get(position);
+        mainActivity.getMainPresenter().getArchiveNewsModel().insertArchiveNews(newsDTO);
+        mainActivity.getMainPresenter().getNews().remove(position);
+        mainActivity.getBinding().newsRv.getAdapter().notifyItemRemoved(position);
     }
 
     @Override
@@ -50,36 +57,29 @@ public class SwipeHandlerCallback extends ItemTouchHelper.Callback {
         }
     }
 
+//    @Override
+//    public float getSwipeThreshold(@NonNull @NotNull RecyclerView.ViewHolder viewHolder) {
+//        return 2f;
+//    }
+//
+//    @Override
+//    public float getSwipeEscapeVelocity(float defaultValue) {
+//        return defaultValue*10;
+//    }
+
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
 
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             View view = getView((NewsRVAdapter.NewsRVViewHolder) viewHolder);
-            Log.d("qwe Dx", String.valueOf(dX));
-            Log.d("qwe p",String.valueOf(getWidthValue(60)));
-            getDefaultUIUtil().onDraw(c, recyclerView, view, dX * getWidthValue(60), dY, actionState, isCurrentlyActive);
+            getDefaultUIUtil().onDraw(c, recyclerView, view, dX, dY, actionState, isCurrentlyActive);
         }
     }
 
-    @Override
-    public float getSwipeEscapeVelocity(float defaultValue) {
-        return defaultValue * 10;
-    }
-
-    @Override
-    public float getSwipeThreshold(@NonNull RecyclerView.ViewHolder viewHolder) {
-        return 0.1f;
-    }
+    
 
     private View getView(NewsRVAdapter.NewsRVViewHolder viewHolder) {
         return viewHolder.binding.viewMain;
     }
 
-    public float getWidthValue(int dp) {
-        float density = resource.getDisplayMetrics().density;
-
-        float x = resource.getDisplayMetrics().widthPixels;
-
-        return (Math.round((float) dp * density))/x;
-    }
 }

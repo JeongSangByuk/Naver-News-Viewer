@@ -15,6 +15,7 @@ public interface MainContract {
         void onDataRefresh(View view);
         void setCategoryView();
         void onClickCategoryView(Constants.NOW_CATEGORY category);
+        void onClickStarIv(View view);
         void setStatusBar();
         void showLoadingDialog();
         void dismissLoadingdialog();
@@ -34,7 +35,6 @@ public interface MainContract {
         void onLoadMore();
         void onLoaded();
         void setCategory(Constants.NOW_CATEGORY category);
-        void setCategory(int category);
 
     }
 

@@ -35,14 +35,11 @@ import java.nio.channels.InterruptedByTimeoutException;
 
 public class MainActivity extends AppCompatActivity implements MainContract.MainView {
 
-    private Context context;
     private ActivityMainBinding binding;
     private NewsPresenter mainPresenter;
     private NewsRVAdapter rvAdapter;
     private LoadingDialog loadingDialog;
-    private long clickedTime;
 
-    private Swipe swipe;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -53,10 +50,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
         setStatusBar();
 
-        mainPresenter = new NewsPresenter(this);
+        mainPresenter = new NewsPresenter(this,getApplicationContext());
         setCategoryView();
 
-        clickedTime = 0;
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) binding.newsRv.getLayoutManager();
 
         rvAdapter = new NewsRVAdapter(mainPresenter);
@@ -77,14 +73,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
             }
         });
 
-        SwipeHandlerCallback swipeHandlerCallback = new SwipeHandlerCallback(getResources());
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeHandlerCallback);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeHandlerCallback(this));
         itemTouchHelper.attachToRecyclerView(binding.newsRv);
-
-        DisplayMetrics metrics = this.getResources().getDisplayMetrics();
-
-        int width = metrics.widthPixels;
-        Log.d("qwe", String.valueOf(width));
     }
 
     @Override
@@ -157,12 +147,38 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
         if (mainPresenter.nowCategory == category)
             return;
-        clickedTime = System.currentTimeMillis();
+
         binding.newsRv.stopScroll();
         rvAdapter = new NewsRVAdapter(mainPresenter);
         binding.newsRv.setAdapter(rvAdapter);
 
         mainPresenter.setCategory(category);
+    }
+
+    @Override
+    public void onClickStarIv(View view) {
+
+        mainPresenter.setArchiveState(true);
+
+        binding.tvTitle.setText("내 뉴스 아카이브");
+        binding.tvTitle.setTextColor(getResources().getColor(R.color.mainBlue));
+
+        binding.tvPol.setTextColor(getResources().getColor(R.color.mainBlue));
+        binding.tvLif.setTextColor(getResources().getColor(R.color.mainBlue));
+        binding.tvSoc.setTextColor(getResources().getColor(R.color.mainBlue));
+        binding.tvEco.setTextColor(getResources().getColor(R.color.mainBlue));
+        binding.tvIt.setTextColor(getResources().getColor(R.color.mainBlue));
+
+        binding.vLif.setBackgroundColor(getResources().getColor(R.color.mainBlue));
+        binding.vIt.setBackgroundColor(getResources().getColor(R.color.mainBlue));
+        binding.vEco.setBackgroundColor(getResources().getColor(R.color.mainBlue));
+        binding.vSoc.setBackgroundColor(getResources().getColor(R.color.mainBlue));
+        binding.vPol.setBackgroundColor(getResources().getColor(R.color.mainBlue));
+
+        binding.ivStar.setImageResource(R.drawable.back);
+        binding.ivRefresh.setVisibility(View.INVISIBLE);
+
+        mainPresenter.setCategory(mainPresenter.nowCategory);
     }
 
     public int changeDpToPx(int dp) {
@@ -202,4 +218,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         Log.d("qwe", "click");
     }
 
+    public ActivityMainBinding getBinding() {
+        return binding;
+    }
+
+    public NewsPresenter getMainPresenter() {
+        return mainPresenter;
+    }
 }

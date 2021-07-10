@@ -1,5 +1,6 @@
 package com.example.navernews.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navernews.interfaces.MainContract;
+import com.example.navernews.model.ArchiveNewsModel;
 import com.example.navernews.model.NewsDTO;
 import com.example.navernews.model.NewsModel;
 import com.example.navernews.utils.Constants;
@@ -19,16 +21,22 @@ public class NewsPresenter implements MainContract.Presenter {
     private MainContract.MainView mainView;
     private ArrayList<NewsDTO> news;
     private NewsModel newsModel;
+    private ArchiveNewsModel archiveNewsModel;
     public Constants.NOW_CATEGORY nowCategory;
+    public Context context;
 
     private boolean isLoading;
+    private boolean isArchiveState;
     private int nowPageNum;
     private int lastVisibleItem, totalItemCount;
 
-    public NewsPresenter(MainContract.MainView mainView) {
+    public NewsPresenter(MainContract.MainView mainView,Context context) {
         this.mainView = mainView;
+        this.context = context;
         newsModel = new NewsModel(this);
+        archiveNewsModel = new ArchiveNewsModel(this);
         nowCategory = Constants.NOW_CATEGORY.POL;
+        isArchiveState = false;
 
         initPageNum();
         setNews();
@@ -46,6 +54,10 @@ public class NewsPresenter implements MainContract.Presenter {
 
     @Override
     public void onScroll(LinearLayoutManager linearLayoutManager) {
+
+        if(isArchiveState)
+            return;
+
         lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
         if (!isLoading && totalItemCount <= (lastVisibleItem)) {
             isLoading = true;
@@ -55,7 +67,6 @@ public class NewsPresenter implements MainContract.Presenter {
 
     @Override
     public void onLoadMore() {
-        Log.d("qwe", "add");
         nowPageNum++;
         newsModel.addNewsData(nowPageNum);
     }
@@ -76,20 +87,23 @@ public class NewsPresenter implements MainContract.Presenter {
 
         nowCategory = category;
         mainView.setCategoryView();
-        setNews();
-    }
 
-    @Override
-    public void setCategory(int category) {
-        nowCategory = Constants.NOW_CATEGORY.values()[category];
-        mainView.setCategoryView();
-        setNews();
+        if(!isArchiveState)
+            setNews();
+        else
+            setArchiveNews();
     }
 
     public void setNews() {
         initPageNum();
         isLoading = true;
         this.news = newsModel.getNewsData();
+    }
+
+    public void setArchiveNews(){
+        initPageNum();
+        isLoading = true;
+        this.news = archiveNewsModel.getNewsArchiveData();
     }
 
     public ArrayList<NewsDTO> getNews() {
@@ -106,4 +120,15 @@ public class NewsPresenter implements MainContract.Presenter {
         isLoading = false;
     }
 
+    public boolean isArchiveState() {
+        return isArchiveState;
+    }
+
+    public void setArchiveState(boolean archiveState) {
+        isArchiveState = archiveState;
+    }
+
+    public ArchiveNewsModel getArchiveNewsModel() {
+        return archiveNewsModel;
+    }
 }

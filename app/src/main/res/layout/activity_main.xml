@@ -24,6 +24,7 @@
             android:layout_marginTop="20dp">
 
             <TextView
+                android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/hangeulnurib"
@@ -43,6 +44,7 @@
                 android:layout_gravity="left"
                 android:padding="10dp"
                 android:layout_marginLeft="10dp"
+                android:onClick="@{activity::onClickStarIv}"
                 android:src="@drawable/star2" />
 
             <ImageView

@@ -1,6 +1,13 @@
 package com.example.navernews.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "News")
 public class NewsDTO {
+
+    @PrimaryKey(autoGenerate = true)
+    private int uid;
 
     private String title,description,time,imgURL,link;
 
@@ -50,5 +57,13 @@ public class NewsDTO {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 }
