@@ -59,7 +59,7 @@ public class NewsPresenter implements MainContract.Presenter {
             return;
 
         lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-        if (!isLoading && totalItemCount <= (lastVisibleItem)) {
+        if (!isLoading && totalItemCount - 1 <= (lastVisibleItem)) {
             isLoading = true;
             onLoadMore();
         }
@@ -74,7 +74,7 @@ public class NewsPresenter implements MainContract.Presenter {
     @Override
     public void onLoaded() {
         isLoading = false;
-        totalItemCount = totalItemCount + Constants.MAX_NEWS_COUNT  - 1;
+        totalItemCount = totalItemCount + Constants.MAX_NEWS_COUNT;
     }
 
     @Override
