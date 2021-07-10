@@ -52,7 +52,7 @@ public class ArchiveNewsModel {
 
             //doInBackground
 
-            news = newsDB.newsDAO().selectAll();
+            news = newsDB.newsDAO().selectAll(presenter.nowCategory.toString());
             return false;
 
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((result) -> {

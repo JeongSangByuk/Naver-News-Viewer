@@ -111,7 +111,7 @@ public class NewsModel {
             if(time.equals(""))
                 time = element.getElementsByIndexEquals(index).select("span[class=date is_outdated]").text();
 
-            news.add(new NewsDTO(title,des,time,imgLink,link));
+            news.add(new NewsDTO(title,des,time,imgLink,link,presenter.nowCategory.toString()));
         }
     }
 

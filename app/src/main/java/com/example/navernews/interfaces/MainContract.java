@@ -16,6 +16,7 @@ public interface MainContract {
         void setCategoryView();
         void onClickCategoryView(Constants.NOW_CATEGORY category);
         void onClickStarIv(View view);
+        void onClickBackIv(View view);
         void setStatusBar();
         void showLoadingDialog();
         void dismissLoadingdialog();

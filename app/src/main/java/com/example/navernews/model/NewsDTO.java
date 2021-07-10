@@ -9,14 +9,15 @@ public class NewsDTO {
     @PrimaryKey(autoGenerate = true)
     private int uid;
 
-    private String title,description,time,imgURL,link;
+    private String title,description,time,imgURL,link,category;
 
-    public NewsDTO(String title, String description, String time, String imgURL,String link) {
+    public NewsDTO(String title, String description, String time, String imgURL,String link,String category) {
         this.title = title;
         this.description = description;
         this.time = time;
         this.imgURL = imgURL;
         this.link = link;
+        this.category = category;
     }
 
     public String getTitle() {
@@ -65,5 +66,13 @@ public class NewsDTO {
 
     public void setUid(int uid) {
         this.uid = uid;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

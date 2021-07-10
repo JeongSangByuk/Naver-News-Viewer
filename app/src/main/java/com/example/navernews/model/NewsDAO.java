@@ -13,7 +13,6 @@ public interface NewsDAO {
     @Insert
     void insert(NewsDTO newsDTO);
 
-    @Query("SELECT * FROM News")
-    List<NewsDTO> selectAll();
-
+    @Query("SELECT * FROM News WHERE category = :category")
+    List<NewsDTO> selectAll(String category);
 }

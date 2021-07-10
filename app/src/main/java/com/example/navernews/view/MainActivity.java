@@ -158,32 +158,43 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     @Override
     public void onClickStarIv(View view) {
 
+        binding.ivBack.setClickable(true);
         mainPresenter.setArchiveState(true);
 
         binding.tvTitle.setText("내 뉴스 아카이브");
-        binding.tvTitle.setTextColor(getResources().getColor(R.color.mainBlue));
+        changeModeColor(R.color.mainBlue);
 
-        binding.tvPol.setTextColor(getResources().getColor(R.color.mainBlue));
-        binding.tvLif.setTextColor(getResources().getColor(R.color.mainBlue));
-        binding.tvSoc.setTextColor(getResources().getColor(R.color.mainBlue));
-        binding.tvEco.setTextColor(getResources().getColor(R.color.mainBlue));
-        binding.tvIt.setTextColor(getResources().getColor(R.color.mainBlue));
-
-        binding.vLif.setBackgroundColor(getResources().getColor(R.color.mainBlue));
-        binding.vIt.setBackgroundColor(getResources().getColor(R.color.mainBlue));
-        binding.vEco.setBackgroundColor(getResources().getColor(R.color.mainBlue));
-        binding.vSoc.setBackgroundColor(getResources().getColor(R.color.mainBlue));
-        binding.vPol.setBackgroundColor(getResources().getColor(R.color.mainBlue));
-
-        binding.ivStar.setImageResource(R.drawable.back);
+        binding.ivStar.setVisibility(View.INVISIBLE);
         binding.ivRefresh.setVisibility(View.INVISIBLE);
 
         mainPresenter.setCategory(mainPresenter.nowCategory);
     }
 
+    @Override
+    public void onClickBackIv(View view) {
+        onBackPressed();
+    }
+
     public int changeDpToPx(int dp) {
         float density = getResources().getDisplayMetrics().density;
         return Math.round((float) dp * density);
+    }
+
+    public void changeModeColor(int color){
+        binding.tvTitle.setTextColor(getResources().getColor(color));
+
+        binding.tvPol.setTextColor(getResources().getColor(color));
+        binding.tvLif.setTextColor(getResources().getColor(color));
+        binding.tvSoc.setTextColor(getResources().getColor(color));
+        binding.tvEco.setTextColor(getResources().getColor(color));
+        binding.tvIt.setTextColor(getResources().getColor(color));
+
+        binding.vLif.setBackgroundColor(getResources().getColor(color));
+        binding.vIt.setBackgroundColor(getResources().getColor(color));
+        binding.vEco.setBackgroundColor(getResources().getColor(color));
+        binding.vSoc.setBackgroundColor(getResources().getColor(color));
+        binding.vPol.setBackgroundColor(getResources().getColor(color));
+
     }
 
     // 상태바 색 바꾸기
@@ -224,5 +235,24 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
     public NewsPresenter getMainPresenter() {
         return mainPresenter;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!mainPresenter.isArchiveState())
+            super.onBackPressed();
+        else{
+            binding.ivBack.setClickable(false);
+            mainPresenter.setArchiveState(false);
+
+            changeModeColor(R.color.mainGreen);
+            binding.tvTitle.setText("네이버 최신 속보");
+            changeModeColor(R.color.mainGreen);
+
+            binding.ivStar.setVisibility(View.VISIBLE);
+            binding.ivRefresh.setVisibility(View.VISIBLE);
+
+            mainPresenter.setCategory(mainPresenter.nowCategory);
+        }
     }
 }

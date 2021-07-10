@@ -27,37 +27,59 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:fontFamily="@font/hangeulnurib"
                 android:gravity="center"
-                android:layout_gravity="center"
                 android:text="네이버 최신 속보"
                 android:textColor="@color/mainGreen"
                 android:textSize="20dp" />
 
-            <ImageView
-                android:id="@+id/ivStar"
+            <FrameLayout
                 android:layout_width="39dp"
-                android:layout_height="39dp"
-                android:adjustViewBounds="true"
-                android:background="@color/colorTransparent"
-                android:scaleType="fitCenter"
-                android:layout_gravity="left"
-                android:padding="10dp"
-                android:layout_marginLeft="10dp"
-                android:onClick="@{activity::onClickStarIv}"
-                android:src="@drawable/star2" />
+                android:layout_height="39dp">
+
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:adjustViewBounds="true"
+                    android:background="@color/colorTransparent"
+                    android:onClick="@{activity::onClickBackIv}"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:clickable="false"
+                    android:src="@drawable/back" />
+
+                <ImageView
+                    android:id="@+id/ivStar"
+                    android:layout_width="39dp"
+                    android:layout_height="39dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:adjustViewBounds="true"
+                    android:background="@color/white"
+                    android:onClick="@{activity::onClickStarIv}"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/star2" />
+
+
+
+            </FrameLayout>
 
             <ImageView
                 android:id="@+id/ivRefresh"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
                 android:adjustViewBounds="true"
                 android:background="@color/colorTransparent"
-                android:scaleType="fitCenter"
-                android:layout_gravity="right"
-                android:padding="10dp"
-                android:layout_marginRight="10dp"
                 android:onClick="@{activity::onDataRefresh}"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/refresh" />
 
 
