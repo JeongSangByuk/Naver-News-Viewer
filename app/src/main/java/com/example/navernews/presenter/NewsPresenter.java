@@ -24,6 +24,7 @@ public class NewsPresenter implements MainContract.Presenter {
     private boolean isLoading;
     private int nowPageNum;
     private int lastVisibleItem, totalItemCount;
+    public boolean isUpdating;
 
     public NewsPresenter(MainContract.MainView mainView) {
         this.mainView = mainView;
@@ -69,6 +70,9 @@ public class NewsPresenter implements MainContract.Presenter {
     @Override
     public void setCategory(Constants.NOW_CATEGORY category) {
 
+        if(isUpdating)
+            return;
+
         initPageNum();
 
         nowCategory = category;
@@ -100,6 +104,7 @@ public class NewsPresenter implements MainContract.Presenter {
         nowPageNum = 1;
         totalItemCount = Constants.MAX_NEWS_COUNT - 1;
         isLoading = false;
+        isUpdating = false;
     }
 
 }

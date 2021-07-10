@@ -72,15 +72,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
             }
         });
 
-        //swipe = new Swipe();
-        //onSwipe();
     }
-
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        swipe.dispatchTouchEvent(ev);
-//        return super.dispatchTouchEvent(ev);
-//    }
 
     @Override
     public void onDataChange(boolean isAdded) {
@@ -89,65 +81,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
         if (!isAdded)
             binding.newsRv.scrollToPosition(0);
-    }
-
-    @Override
-    public void onSwipe() {
-//        swipe.setListener(new SwipeListener() {
-//            @Override
-//            public void onSwipingLeft(MotionEvent event) {
-//
-//            }
-//
-//            @Override
-//            public boolean onSwipedLeft(MotionEvent event) {
-//
-//                if(mainPresenter.nowCategory.ordinal() == 4)
-//                    return false;
-//
-//                clickedTime = System.currentTimeMillis();
-//                mainPresenter.setCategory(mainPresenter.nowCategory.ordinal() + 1);
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwipingRight(MotionEvent event) {
-//                Log.d("qwe","ing");
-//            }
-//
-//            @Override
-//            public boolean onSwipedRight(MotionEvent event) {
-//                if(mainPresenter.nowCategory.ordinal() == 0)
-//                    return false;
-//
-//                clickedTime = System.currentTimeMillis();
-//                mainPresenter.setCategory(mainPresenter.nowCategory.ordinal() - 1);
-//                Log.d("qwe","ed");
-//
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwipingUp(MotionEvent event) {
-//
-//            }
-//
-//            @Override
-//            public boolean onSwipedUp(MotionEvent event) {
-//
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwipingDown(MotionEvent event) {
-//
-//            }
-//
-//            @Override
-//            public boolean onSwipedDown(MotionEvent event) {
-//                return false;
-//            }
-//        });
     }
 
     @SuppressLint("ResourceAsColor")
@@ -210,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         binding.newsRv.stopScroll();
         rvAdapter = new NewsRVAdapter(mainPresenter);
         binding.newsRv.setAdapter(rvAdapter);
-
 
         mainPresenter.setCategory(category);
     }

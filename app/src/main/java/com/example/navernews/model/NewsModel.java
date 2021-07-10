@@ -53,6 +53,9 @@ public class NewsModel {
     }
 
     void backgroundTask(String URLs) {
+        
+        presenter.isUpdating = true;
+
         //onPreExecute
         presenter.getMainView().showLoadingDialog();
 
@@ -60,6 +63,7 @@ public class NewsModel {
 
             //doInBackground
             try {
+                Log.d("qwe",presenter.nowCategory.toString());
                 Document doc = Jsoup.connect(URLs).timeout(3000).get();
                 Elements elements = doc.select("ul[class=type06_headline]").select("li");
                 Elements elements2 = doc.select("ul[class=type06]").select("li");
@@ -70,7 +74,6 @@ public class NewsModel {
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.d("qwe","eerr");
-                presenter.getMainView().dismissLoadingdialog();
             }
 
             return false;
@@ -84,6 +87,7 @@ public class NewsModel {
                 presenter.getMainView().onDataChange(false);
             presenter.getMainView().dismissLoadingdialog();
             presenter.onLoaded();
+            presenter.isUpdating = false;
             backgroundtask.dispose();
         });
     }

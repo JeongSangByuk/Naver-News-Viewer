@@ -10,7 +10,6 @@ public interface MainContract {
 
     interface MainView{
         void onDataChange(boolean isAdded);
-        void onSwipe();
         void setCategoryView();
         void onClickCategoryView(Constants.NOW_CATEGORY category);
         void setStatusBar();
