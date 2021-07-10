@@ -6,9 +6,13 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <!-- 타이틀 바 없애기-->
+        <!-- No Title Bar-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <!-- 초기로딩시 흰 화면 없애기-->
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
 </resources>

@@ -18,157 +18,181 @@
         android:orientation="vertical"
         tools:context=".view.MainActivity">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/hangeulnurib"
-            android:text="네이버 최신 속보"
-            android:textColor="@color/mainGreen"
-            android:textSize="20dp" />
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/hangeulnurib"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="네이버 최신 속보"
+                android:textColor="@color/mainGreen"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:id="@+id/ivStar"
+                android:layout_width="39dp"
+                android:layout_height="39dp"
+                android:adjustViewBounds="true"
+                android:background="@color/colorTransparent"
+                android:scaleType="fitCenter"
+                android:layout_gravity="left"
+                android:padding="10dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/star2" />
+
+            <ImageView
+                android:id="@+id/ivRefresh"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:adjustViewBounds="true"
+                android:background="@color/colorTransparent"
+                android:scaleType="fitCenter"
+                android:layout_gravity="right"
+                android:padding="10dp"
+                android:layout_marginRight="10dp"
+                android:onClick="@{activity::onDataRefresh}"
+                android:src="@drawable/refresh" />
+
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tvPol"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:fontFamily="@font/hangeulnurib"
+                android:gravity="center"
+                android:onClick="@{activity::onClickPolTv}"
                 android:padding="10dp"
                 android:text="정치"
                 android:textColor="@color/mainGreen"
-                android:gravity="center"
-                android:textSize="13dp"
-                android:onClick="@{activity::onClickPolTv}"
-                />
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/tvEco"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:fontFamily="@font/hangeulnurib"
+                android:gravity="center"
+                android:onClick="@{activity::onClickEcoTv}"
                 android:padding="10dp"
                 android:text="경제"
-                android:gravity="center"
                 android:textColor="@color/mainGreen"
-                android:onClick="@{activity::onClickEcoTv}"
                 android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/tvSoc"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:fontFamily="@font/hangeulnurib"
+                android:gravity="center"
+                android:onClick="@{activity::onClickSocTv}"
                 android:padding="10dp"
                 android:text="사회"
-                android:gravity="center"
                 android:textColor="@color/mainGreen"
-                android:onClick="@{activity::onClickSocTv}"
                 android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/tvLif"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:fontFamily="@font/hangeulnurib"
+                android:gravity="center"
+                android:onClick="@{activity::onClickLifTv}"
                 android:padding="10dp"
                 android:text="생활"
-                android:gravity="center"
                 android:textColor="@color/mainGreen"
-                android:onClick="@{activity::onClickLifTv}"
                 android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/tvIt"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:fontFamily="@font/hangeulnurib"
+                android:gravity="center"
+                android:onClick="@{activity::onClickItTv}"
                 android:padding="10dp"
                 android:text="과학"
-                android:gravity="center"
                 android:textColor="@color/mainGreen"
-                android:onClick="@{activity::onClickItTv}"
                 android:textSize="13dp" />
 
 
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <View
-            android:id="@+id/vPol"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/mainGreen"
-            android:layout_gravity="center"
-            />
+            <View
+                android:id="@+id/vPol"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/mainGreen" />
 
-        <View
-            android:id="@+id/vEco"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/mainGreen"
-            android:layout_gravity="center"
-            />
+            <View
+                android:id="@+id/vEco"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/mainGreen" />
 
-        <View
-            android:id="@+id/vSoc"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/mainGreen"
-            android:layout_gravity="center"
-            />
+            <View
+                android:id="@+id/vSoc"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/mainGreen" />
 
-        <View
-            android:id="@+id/vLif"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/mainGreen"
-            android:layout_gravity="center"
-            />
+            <View
+                android:id="@+id/vLif"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/mainGreen" />
 
-        <View
-            android:id="@+id/vIt"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/mainGreen"
-            android:layout_gravity="center"
-            />
+            <View
+                android:id="@+id/vIt"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/mainGreen" />
 
-    </LinearLayout>
+        </LinearLayout>
 
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/newsRv"

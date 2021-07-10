@@ -1,5 +1,7 @@
 package com.example.navernews.interfaces;
 
+import android.view.View;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.navernews.model.NewsDTO;
@@ -10,6 +12,7 @@ public interface MainContract {
 
     interface MainView{
         void onDataChange(boolean isAdded);
+        void onDataRefresh(View view);
         void setCategoryView();
         void onClickCategoryView(Constants.NOW_CATEGORY category);
         void setStatusBar();

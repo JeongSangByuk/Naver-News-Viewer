@@ -53,7 +53,7 @@ public class NewsModel {
     }
 
     void backgroundTask(String URLs) {
-        
+
         presenter.isUpdating = true;
 
         //onPreExecute

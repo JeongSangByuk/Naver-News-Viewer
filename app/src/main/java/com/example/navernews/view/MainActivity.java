@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -37,8 +38,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     private LoadingDialog loadingDialog;
     private long clickedTime;
 
-    private Swipe swipe;
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +57,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         binding.swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (System.currentTimeMillis() <= clickedTime + 500)
-                    return;
-                mainPresenter.setNews();
+                onDataRefresh(binding.getActivity().getWindow().getDecorView());
             }
         });
 
@@ -81,6 +78,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
         if (!isAdded)
             binding.newsRv.scrollToPosition(0);
+    }
+
+    @Override
+    public void onDataRefresh(View view) {
+        mainPresenter.setNews();
     }
 
     @SuppressLint("ResourceAsColor")
