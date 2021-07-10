@@ -16,98 +16,123 @@
 
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:orientation="vertical"
-        android:padding="10dp">
+        >
 
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/viewSub"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:background="#ffff00"
+            android:layout_gravity="center_vertical|end">
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/iv_news"
-                android:layout_width="80dp"
+            <ImageView
+                android:id="@+id/ivStar"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:adjustViewBounds="true"
                 android:background="@color/colorTransparent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/news_test"
-                app:riv_corner_radius="10dp"
-                app:riv_oval="false"
-                android:onClick="@{()->onClickListener.onItemClick(news.link)}"
-                />
+                android:scaleType="fitCenter"
+                android:layout_gravity="end|center_vertical"
+                android:padding="10dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/star2" />
+
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:id="@+id/viewMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:padding="10dp">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/iv_news"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="right"
+                    android:adjustViewBounds="true"
+                    android:background="@color/colorTransparent"
+                    android:onClick="@{()->onClickListener.onItemClick(news.link)}"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/news_test"
+                    app:riv_corner_radius="10dp"
+                    app:riv_oval="false" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="10dp"
 
-                    <TextView
-                        android:id="@+id/tvTitle"
-                        android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="3dp">
 
-                        android:fontFamily="@font/hangeulnurib"
-                        android:maxLines="1"
-                        android:text="@{news.title}"
-                        android:onClick="@{()->onClickListener.onItemClick(news.link)}"
-                        android:textColor="@color/black"
-                        android:textSize="13dp"
-                        tools:text="과학사의 발전.과학사의 발전.과학사의 발전.과학사의 발전.sss" />
+                        <TextView
+                            android:id="@+id/tvTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+
+                            android:fontFamily="@font/hangeulnurib"
+                            android:maxLines="1"
+                            android:onClick="@{()->onClickListener.onItemClick(news.link)}"
+                            android:text="@{news.title}"
+                            android:textColor="@color/black"
+                            android:textSize="13dp"
+                            tools:text="과학사의 발전.과학사의 발전.과학사의 발전.과학사의 발전.sss" />
+
+                        <TextView
+                            android:id="@+id/tvTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:fontFamily="@font/hangeulnurir"
+                            android:gravity="center"
+                            android:onClick="@{()->onClickListener.onItemClick(news.link)}"
+                            android:text="@{news.time}"
+                            android:textColor="@color/colorGray"
+
+                            android:textSize="8dp"
+                            tools:text="7월 12일 12:00" />
+
+
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tvTime"
+                        android:id="@+id/tvDes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="3dp"
+                        android:ellipsize="end"
                         android:fontFamily="@font/hangeulnurir"
-                        android:gravity="center"
-                        android:text="@{news.time}"
+                        android:maxLines="3"
                         android:onClick="@{()->onClickListener.onItemClick(news.link)}"
-                        android:textColor="@color/colorGray"
-
-                        android:textSize="8dp"
-                        tools:text="7월 12일 12:00" />
+                        android:text="@{news.description}"
+                        android:textColor="@color/black"
+                        android:textSize="12dp"
+                        tools:text="상상 그 이상으로 가는 상상" />
 
 
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tvDes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/hangeulnurir"
-                    android:maxLines="3"
-                    android:text="@{news.description}"
-                    android:onClick="@{()->onClickListener.onItemClick(news.link)}"
-                    android:textColor="@color/black"
-                    android:textSize="12dp"
-                    tools:text="상상 그 이상으로 가는 상상" />
-
-
             </LinearLayout>
-
-
         </LinearLayout>
-
-
-    </LinearLayout>
-
+    </FrameLayout>
 </layout>

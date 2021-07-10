@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -16,6 +17,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.example.navernews.presenter.NewsPresenter;
 import com.example.navernews.R;
 import com.example.navernews.databinding.ActivityMainBinding;
 import com.example.navernews.utils.Constants;
+import com.example.navernews.utils.SwipeHandlerCallback;
 import com.github.pwittchen.swipe.library.rx2.Swipe;
 import com.github.pwittchen.swipe.library.rx2.SwipeListener;
 
@@ -32,11 +35,14 @@ import java.nio.channels.InterruptedByTimeoutException;
 
 public class MainActivity extends AppCompatActivity implements MainContract.MainView {
 
+    private Context context;
     private ActivityMainBinding binding;
     private NewsPresenter mainPresenter;
     private NewsRVAdapter rvAdapter;
     private LoadingDialog loadingDialog;
     private long clickedTime;
+
+    private Swipe swipe;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -44,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setActivity(this);
+
         setStatusBar();
 
         mainPresenter = new NewsPresenter(this);
@@ -54,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
         rvAdapter = new NewsRVAdapter(mainPresenter);
         binding.newsRv.setAdapter(rvAdapter);
+
         binding.swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -69,6 +77,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
             }
         });
 
+        SwipeHandlerCallback swipeHandlerCallback = new SwipeHandlerCallback(getResources());
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeHandlerCallback);
+        itemTouchHelper.attachToRecyclerView(binding.newsRv);
+
+        DisplayMetrics metrics = this.getResources().getDisplayMetrics();
+
+        int width = metrics.widthPixels;
+        Log.d("qwe", String.valueOf(width));
     }
 
     @Override

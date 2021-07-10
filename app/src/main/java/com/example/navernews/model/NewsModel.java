@@ -54,8 +54,6 @@ public class NewsModel {
 
     void backgroundTask(String URLs) {
 
-        presenter.isUpdating = true;
-
         //onPreExecute
         presenter.getMainView().showLoadingDialog();
 
@@ -87,7 +85,6 @@ public class NewsModel {
                 presenter.getMainView().onDataChange(false);
             presenter.getMainView().dismissLoadingdialog();
             presenter.onLoaded();
-            presenter.isUpdating = false;
             backgroundtask.dispose();
         });
     }
