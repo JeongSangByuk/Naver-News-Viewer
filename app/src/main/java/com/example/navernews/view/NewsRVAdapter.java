@@ -1,5 +1,6 @@
 package com.example.navernews.view;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.example.navernews.model.NewsDTO;
 import com.example.navernews.R;
 import com.example.navernews.databinding.ItemNewsBinding;
 import com.example.navernews.presenter.NewsPresenter;
+import com.example.navernews.utils.Constants;
 
 public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.NewsRVViewHolder> {
 
@@ -27,6 +29,7 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.NewsRVView
     @NonNull
     @Override
     public NewsRVViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news, parent, false);
         return new NewsRVViewHolder(view,newsPresenter);
     }
@@ -41,6 +44,7 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.NewsRVView
     public int getItemCount() {
         return newsPresenter.getNewsCount();
     }
+
 
     public class NewsRVViewHolder extends RecyclerView.ViewHolder implements MainContract.NewsItemView {
 
@@ -60,6 +64,16 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.NewsRVView
             binding.setNews(newsDTO);
             Glide.with(itemView).load(newsDTO.getImgURL())
                     .placeholder(R.drawable.loading).error(R.drawable.nophoto).into(binding.ivNews);
+
+            if(newsPresenter.isArchiveState()){
+                binding.viewSub.setBackgroundColor(newsPresenter.context.getResources().getColor(R.color.mainTransRed));
+                binding.ivStar.setImageResource(R.drawable.trash);
+            }
+            else{
+                binding.viewSub.setBackgroundColor(newsPresenter.context.getResources().getColor(R.color.mainTransGreen));
+                binding.ivStar.setImageResource(R.drawable.starw);
+            }
+
         }
 
         @Override

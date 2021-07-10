@@ -21,6 +21,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.navernews.interfaces.MainContract;
 import com.example.navernews.presenter.NewsPresenter;
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
     @Override
     public void onDataRefresh(View view) {
+        initRv();
         mainPresenter.setNews();
     }
 
@@ -148,15 +150,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         if (mainPresenter.nowCategory == category)
             return;
 
-        binding.newsRv.stopScroll();
-        rvAdapter = new NewsRVAdapter(mainPresenter);
-        binding.newsRv.setAdapter(rvAdapter);
+        initRv();
 
         mainPresenter.setCategory(category);
     }
 
     @Override
     public void onClickStarIv(View view) {
+
 
         binding.ivBack.setClickable(true);
         mainPresenter.setArchiveState(true);
@@ -166,6 +167,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
         binding.ivStar.setVisibility(View.INVISIBLE);
         binding.ivRefresh.setVisibility(View.INVISIBLE);
+
+        initRv();
 
         mainPresenter.setCategory(mainPresenter.nowCategory);
     }
@@ -218,6 +221,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     }
 
     @Override
+    public void showInsertingToastMessage() {
+        Toast toast = Toast.makeText(getApplicationContext(),"내 뉴스 아카이브에 추가됐습니다.",Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
+    public void showDeletingToastMessage() {
+        Toast toast = Toast.makeText(getApplicationContext(),"내 뉴스 아카이브에서 삭제됐습니다.",Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
     public void connectLink(String url) {
 
         // 더블클릭 방지.
@@ -226,7 +241,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
-        Log.d("qwe", "click");
     }
 
     public ActivityMainBinding getBinding() {
@@ -235,6 +249,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
     public NewsPresenter getMainPresenter() {
         return mainPresenter;
+    }
+
+    public void initRv(){
+        binding.newsRv.stopScroll();
+        rvAdapter = new NewsRVAdapter(mainPresenter);
+        binding.newsRv.setAdapter(rvAdapter);
     }
 
     @Override
@@ -251,6 +271,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
             binding.ivStar.setVisibility(View.VISIBLE);
             binding.ivRefresh.setVisibility(View.VISIBLE);
+
+            initRv();
 
             mainPresenter.setCategory(mainPresenter.nowCategory);
         }

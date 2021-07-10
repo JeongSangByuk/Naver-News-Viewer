@@ -43,6 +43,11 @@ public class ArchiveNewsModel {
         backgroundInsertTask(news);
     }
 
+    public void deleteArchiveNews(NewsDTO news){
+        backgroundDeleteTask(news);
+    }
+
+
     void backgroundTask() {
 
         //onPreExecute
@@ -82,6 +87,27 @@ public class ArchiveNewsModel {
 
             //onPostExecute
             presenter.getMainView().dismissLoadingdialog();
+            presenter.getMainView().showInsertingToastMessage();
+            backgroundtask.dispose();
+        });
+    }
+
+    void backgroundDeleteTask(NewsDTO news) {
+
+        //onPreExecute
+        presenter.getMainView().showLoadingDialog();
+
+        backgroundtask = Observable.fromCallable(() -> {
+
+            //doInBackground
+            newsDB.newsDAO().delete(news);
+            return false;
+
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((result) -> {
+
+            //onPostExecute
+            presenter.getMainView().dismissLoadingdialog();
+            presenter.getMainView().showDeletingToastMessage();
             backgroundtask.dispose();
         });
     }

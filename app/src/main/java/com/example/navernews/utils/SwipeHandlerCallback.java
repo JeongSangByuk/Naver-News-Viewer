@@ -40,7 +40,14 @@ public class SwipeHandlerCallback extends ItemTouchHelper.Callback {
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         int position = viewHolder.getAdapterPosition();
         NewsDTO newsDTO =  mainActivity.getMainPresenter().getNews().get(position);
-        mainActivity.getMainPresenter().getArchiveNewsModel().insertArchiveNews(newsDTO);
+
+        if(mainActivity.getMainPresenter().isArchiveState())
+            mainActivity.getMainPresenter().getArchiveNewsModel().deleteArchiveNews(newsDTO);
+        else{
+            mainActivity.getMainPresenter().getArchiveNewsModel().insertArchiveNews(newsDTO);
+            mainActivity.getMainPresenter().minusTotalItemCount();
+
+        }
         mainActivity.getMainPresenter().getNews().remove(position);
         mainActivity.getBinding().newsRv.getAdapter().notifyItemRemoved(position);
     }
@@ -56,16 +63,6 @@ public class SwipeHandlerCallback extends ItemTouchHelper.Callback {
             getDefaultUIUtil().onSelected(getView((NewsRVAdapter.NewsRVViewHolder) viewHolder));
         }
     }
-
-//    @Override
-//    public float getSwipeThreshold(@NonNull @NotNull RecyclerView.ViewHolder viewHolder) {
-//        return 2f;
-//    }
-//
-//    @Override
-//    public float getSwipeEscapeVelocity(float defaultValue) {
-//        return defaultValue*10;
-//    }
 
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {

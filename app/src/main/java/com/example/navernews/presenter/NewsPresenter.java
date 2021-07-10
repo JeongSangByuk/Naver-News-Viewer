@@ -74,7 +74,7 @@ public class NewsPresenter implements MainContract.Presenter {
     @Override
     public void onLoaded() {
         isLoading = false;
-        totalItemCount = Constants.MAX_NEWS_COUNT * nowPageNum - 1;
+        totalItemCount = totalItemCount + Constants.MAX_NEWS_COUNT  - 1;
     }
 
     @Override
@@ -95,6 +95,10 @@ public class NewsPresenter implements MainContract.Presenter {
     }
 
     public void setNews() {
+
+        if(isLoading)
+            return;
+
         initPageNum();
         isLoading = true;
         this.news = newsModel.getNewsData();
@@ -116,8 +120,12 @@ public class NewsPresenter implements MainContract.Presenter {
 
     public void initPageNum(){
         nowPageNum = 1;
-        totalItemCount = Constants.MAX_NEWS_COUNT - 1;
+        totalItemCount = 0;
         isLoading = false;
+    }
+
+    public void minusTotalItemCount(){
+        totalItemCount--;
     }
 
     public boolean isArchiveState() {

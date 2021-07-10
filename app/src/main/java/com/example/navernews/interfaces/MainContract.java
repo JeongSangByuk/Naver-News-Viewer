@@ -20,6 +20,8 @@ public interface MainContract {
         void setStatusBar();
         void showLoadingDialog();
         void dismissLoadingdialog();
+        void showInsertingToastMessage();
+        void showDeletingToastMessage();
         void connectLink(String url);
     }
 

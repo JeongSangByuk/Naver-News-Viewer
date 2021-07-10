@@ -7,7 +7,10 @@
     <color name="white">#ffffff</color>
     <color name="mainGreen">#009900</color>
     <color name="mainTransGreen">#99009900</color>
+    <color name="mainTransRed">#99ff0000</color>
+
     <color name="colorTransparent">#00FF0000</color>
+
     <color name="mainBlue">#2929ff</color>
     <color name="colorGray">#989898</color>
     <color name="colorLightGray">#f9f9f9</color>
