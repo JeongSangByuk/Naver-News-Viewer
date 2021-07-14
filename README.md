@@ -1,4 +1,4 @@
-# Naver-News-Viewer
+# 😄 Naver-News-Viewer
 <img src = "https://img.shields.io/badge/ProjectType-ToyProject-orange?style=flat-square">  <img src = "https://img.shields.io/badge/Tools-AndroidStudio-brightgreen?style=flat-square&logo=AndroidStudio">  <img src = "https://img.shields.io/badge/Language-Java-critical?style=flat-square&logo=Java">
 > MVP 패턴을 학습하기 위해, </br>
 > MVP 패턴을 적용해서 개발한 네이버 최신 속보 뷰어 안드로이드 어플리케이션 입니다.
@@ -21,7 +21,7 @@
 + Room : 로컬 데이터베이스를 활용하기 위해 사용.
 </br>
 
-##  🖥️  Preiew
+##  🖥️  Preview
 <p align="center"> <img src = "https://user-images.githubusercontent.com/64072741/125657755-fa90b789-a5d0-4b10-8868-b51d17f7fc8c.gif" width = "40%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src = "https://user-images.githubusercontent.com/64072741/125659291-f1ec4605-5e8a-405c-a363-ce7221823255.gif" width = "40%"></p>
 </br></br>
 
