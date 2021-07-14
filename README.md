@@ -22,14 +22,10 @@
 </br>
 
 ##  🖥️  Preiew
-<p align="center"> <img src = "https://user-images.githubusercontent.com/64072741/125657755-fa90b789-a5d0-4b10-8868-b51d17f7fc8c.gif" width = "40%" margin-right : '10px'> <img src = "https://user-images.githubusercontent.com/64072741/125659291-f1ec4605-5e8a-405c-a363-ce7221823255.gif" width = "40%"></p>
+<p align="center"> <img src = "https://user-images.githubusercontent.com/64072741/125657755-fa90b789-a5d0-4b10-8868-b51d17f7fc8c.gif" width = "40%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src = "https://user-images.githubusercontent.com/64072741/125659291-f1ec4605-5e8a-405c-a363-ce7221823255.gif" width = "40%"></p>
 </br></br>
 
 ##  🛠️  Architecture - MVP 패턴
-</br></br>
-
 <img src = "https://user-images.githubusercontent.com/64072741/125657353-4fed9ff2-08f3-445d-9a54-d4873a1b874b.png"> 
-
-<img src = "https://user-images.githubusercontent.com/64072741/125657436-f841ab04-3730-46b0-a2cb-33cdcab8e79a.png" width = "30%" height = "30%">
 
 
