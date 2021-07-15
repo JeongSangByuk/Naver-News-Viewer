@@ -25,7 +25,13 @@
 <p align="center"> <img src = "https://user-images.githubusercontent.com/64072741/125657755-fa90b789-a5d0-4b10-8868-b51d17f7fc8c.gif" width = "40%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src = "https://user-images.githubusercontent.com/64072741/125659291-f1ec4605-5e8a-405c-a363-ce7221823255.gif" width = "40%"></p>
 </br></br>
 
-##  🛠️  Architecture - MVP 패턴
+##  🛠️  Architecture
 <img src = "https://user-images.githubusercontent.com/64072741/125657353-4fed9ff2-08f3-445d-9a54-d4873a1b874b.png"> 
+<br>
 
++ 네이버 최신 속보 뷰어 어플리케이션에는 MVP 패턴을 기반으로 설계했습니다.<br>
+  MVP 패턴은 Modle-View-Presenter로 구성되며, View와 Model을 완전하게 분리해서 사용하기 위해 적용합니다.
++ Presenter은 View와 인터페이스로 연결되며 View와 Model 사이의 데이터를 전달하고 View를 업데이트합니다.
++ Google의 Architecture 정의를 따라, Contract 인터페이스를 정의한 후 View와 Presenter에 implement해서 사용했습니다.<br>
+  이러한 방식은 View와 Presenter 간의 상호작용에 대한 설계를 도와주며 개발자가 직관적으로 클래스 기능을 파악할 수 있게끔 합니다.
 
