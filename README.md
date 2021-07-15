@@ -33,7 +33,7 @@
   MVP 패턴은 Modle-View-Presenter로 구성되며, View와 Model을 완전하게 분리해서 사용하기 위해 적용합니다.
 + Presenter은 View와 인터페이스로 연결되며 View와 Model 사이의 데이터를 전달하고 View를 업데이트합니다.
 + Google의 Architecture 정의를 따라, Contract 인터페이스를 정의한 후 View와 Presenter에 implement해서 사용했습니다.<br>
-  이러한 방식은 View와 Presenter 간의 상호작용에 대한 설계를 도와주며 개발자가 직관적으로 클래스 기능을 파악할 수 있게끔 합니다.<br>
+  이러한 방식은 View와 Presenter 간의 상호작용에 대한 설계를 도와주며 개발자가 직관적으로 클래스 기능을 파악할 수 있게끔 합니다.<br></br>
   
 ## 🎓 I Learned
 + 디자인 패턴을 적용해봄으로써 OOP의 감각을 많이 느낄 수 있어서 매우 뿌듯했습니다. 지금까지 그저 이론적으로 얕게 알고 있었던 지식들을 꼼꼼히 다시 학습해보고 이를 실제로 적용해보는 과정에서 설계 기법과 프로그래밍 규약을 지키려고 많은 노력을 했습니다. 
